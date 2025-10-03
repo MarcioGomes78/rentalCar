@@ -20,12 +20,12 @@ public class Program {
 		 
 		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"); 
 		 
-		 System.out.println("Enter rental data; ");
+		 System.out.println("Enter rental data");
 		 System.out.print("Car model: ");
 		 String carModel = sc.nextLine();
-		 System.out.print("Retirada (dd/MM/yyyy hh:mm)");
+		 System.out.print("Pickup (dd/MM/yyyy hh:mm): ");
 		 LocalDateTime start = LocalDateTime.parse(sc.nextLine(), dtf);
-		 System.out.print("Retorno (dd/MM/yyyy hh:mm)");
+		 System.out.print("Return (dd/MM/yyyy hh:mm): ");
 		 LocalDateTime finish = LocalDateTime.parse(sc.nextLine(), dtf);
 		 
 		 CarRental cr = new CarRental( start, finish, new Vehicle(carModel));
@@ -35,13 +35,14 @@ public class Program {
 		 System.out.print("Enter price per day: ");
 		 double pricePerDay = sc.nextDouble();
 		 
+		 // Upcasting
 		 RentalService rentalService = new RentalService(pricePerHour, pricePerDay, new BrazilTaxService());
 		 rentalService.processInvoice(cr);
 		 
-		 System.out.println("FATURA: ");
-		 System.out.println("Pagamento Básico: " + String.format("%.2f", cr.getInvoice().getBasicPayment()));
-		 System.out.println("Imposto: " + String.format("%.2f", cr.getInvoice().getTax()));
-		 System.out.println("Pagamento Total: " + String.format("%.2f", cr.getInvoice().getBasicPayment()));
+		 System.out.println("INVOICE: ");
+		 System.out.println("Basic payment: " + String.format("%.2f", cr.getInvoice().getBasicPayment()));
+		 System.out.println("Tax: " + String.format("%.2f", cr.getInvoice().getTax()));
+		 System.out.println("Total payment: " + String.format("%.2f", cr.getInvoice().getBasicPayment()));
 		 
 		 sc.close();
 	}
